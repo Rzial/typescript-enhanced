@@ -1,18 +1,18 @@
 {
   "name": "typescript-enhanced",
+  "description": "Typescript Enhanced is an extension of the existing Typescript package that modifies the functionality of the tsc command giving it some superpowers",
+  "author": "Pedro Pérez Furio <rzial.p@gmail.com>",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "bin": {
     "tsce": "./bin/tsce"
   },
-  "author": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {},
   "devDependencies": {
     "typescript": "^3.4.1"
   },
   "peerDependencies": {
-    "typescript": ">= 2.3.0"
+    "typescript": ">= 1.0.0"
   }
 }

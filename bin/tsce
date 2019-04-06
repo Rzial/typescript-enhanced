@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+// Execute the tsce injection
+const ts = require('../src/tsce');
+
+// Give the control back to tsc
+ts.executeCommandLine(ts.sys.args);
