@@ -11,4 +11,8 @@ require('./tsce-injector');
 // Require the injected version of the module
 const ts = require('typescript/lib/tsc');
 
+// Apply enhancements to TS
+require('./enhancements/enable-enhancements-diagnostic-messages')(ts);
+require('./enhancements/enable-resolve-aliased-modules')(ts);
+
 module.exports = ts;
