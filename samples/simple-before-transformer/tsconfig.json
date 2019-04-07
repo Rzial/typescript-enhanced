@@ -1,0 +1,24 @@
+{
+    "extends": "../_common_/tsconfig",
+
+    "compilerOptions": {
+        "outDir": "./dist",                       /* Redirect output structure to the directory. */
+        "rootDirs": [
+            "./src"
+        ],
+
+        /* Module Resolution Options */
+        "baseUrl": "./src",                       /* Base directory to resolve non-absolute module names. */
+        "paths": {                                /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
+            "@module/*": ["./module/*"]
+        },
+
+        /* Enhanced Options */
+        "customTransformers": [
+            {"module": "./transformers/simple-before-transformer", "type": "before"}
+        ]
+    },
+    "include": [
+        "./src"
+    ]
+}

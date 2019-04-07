@@ -27,6 +27,34 @@ tsce
 > use any version of the package.
 
 ### Enhancements
+#### Custom Transformers
+With Typescript Enhanced you will be able to create any custom transformer you
+want to your source code using the internal mechanism of Typescript (since
+version v2.3.0).
+
+To enable this enhacement just add to your `tsconfig.json` the following line.
+```json5
+{
+  // ...
+  "compilerOptions": {
+      // ...
+      "customTransformers": [
+          {
+              module: "<module path>",
+              type: "<before/after>",
+              options: {},
+          }
+      ]
+      // ...
+  }
+  // ...
+}
+```
+
+The custom transformer option applies the all the transformations on the order
+you specify them. You can find some custom transformer examples on the
+test folder.
+
 #### Resolve Aliased Modules
 In Typescript Enhanced you will be able to finally resolve those messy imports 
 that don't let you work on Node.js.
