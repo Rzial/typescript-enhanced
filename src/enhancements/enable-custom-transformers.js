@@ -83,8 +83,7 @@ module.exports = function (ts) {
         return Array.isArray(transformerModules)
             ? transformerModules
                 .map(({module, options}) => {
-                    // TODO: Handle error
-                    // TODO: Put an actual transformer
+                    // TODO: Handle errors
                     return require(module.startsWith('./') || module.startsWith('../') || module.startsWith('/')
                         ? configPath + '/' + module
                         : module)(options);

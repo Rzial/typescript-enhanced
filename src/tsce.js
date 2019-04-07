@@ -15,5 +15,6 @@ const ts = require('typescript/lib/tsc');
 require('./enhancements/enable-enhancements-diagnostic-messages')(ts);
 require('./enhancements/enable-resolve-aliased-modules')(ts);
 require('./enhancements/enable-custom-transformers')(ts);
+require('./enhancements/enable-watch-mode-callbacks')(ts);
 
 module.exports = ts;
