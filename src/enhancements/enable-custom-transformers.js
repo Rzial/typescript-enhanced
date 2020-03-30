@@ -12,32 +12,32 @@
  *
  * @param ts
  */
-const { dirname, resolve } = require('path');
+const {dirname, resolve} = require('path');
 
-module.exports = function (ts) {
+module.exports = function(ts) {
     // Creates a message for the tsce --init command
     ts.Diagnostics.Custom_Transformers_Description = ts.diag(100002,
-        ts.DiagnosticCategory.Message, "Custom_Transformers_Description_100002",
-        "Enables the use of custom transformers during the build process.");
+        ts.DiagnosticCategory.Message, 'Custom_Transformers_Description_100002',
+        'Enables the use of custom transformers during the build process.');
 
     // Adds an option to tsconfig.json to enable this enhacement
     ts.optionDeclarations = ts.optionDeclarations.concat([
         {
-            name: "customTransformers",
-            type: "list",
+            name: 'customTransformers',
+            type: 'list',
             element: {
-                name: "customTransformers",
-                type: "object"
+                name: 'customTransformers',
+                type: 'object',
             },
             isTSConfigOnly: true,
             category: ts.Diagnostics.Enhancement_Options,
-            description: ts.Diagnostics.Custom_Transformers_Description
-        }
+            description: ts.Diagnostics.Custom_Transformers_Description,
+        },
     ]);
 
     // Hook on createProgram
     const createProgram = ts.createProgram;
-    ts.createProgram = function (...args) {
+    ts.createProgram = function(...args) {
         const program = createProgram.apply(this, args);
         const emit = program.emit;
 
@@ -51,15 +51,15 @@ module.exports = function (ts) {
                 before: transformers && Array.isArray(transformers.before)
                     ? [
                         ...customTransformers.before,
-                        ...transformers.before
+                        ...transformers.before,
                     ]
                     : customTransformers.before,
                 after: transformers && Array.isArray(transformers.after)
                     ? [
                         ...transformers.after,
-                        ...customTransformers.after
+                        ...customTransformers.after,
                     ]
-                    : customTransformers.after
+                    : customTransformers.after,
             };
 
             return emit.apply(this, args);
@@ -71,12 +71,12 @@ module.exports = function (ts) {
     /**
      * Load the custom transformer from a file/module and give them his options
      *
-     * @param transformerModules
-     * @returns {Array}
+     * @param {Array | String} transformerModules
+     * @return {Array}
      */
     function loadCustomTransformers(transformerModules) {
-        const { options: { project } } = ts.parseCommandLine(ts.sys.args);
-        const configPath = !!project
+        const {options: {project}} = ts.parseCommandLine(ts.sys.args);
+        const configPath = project
             ? dirname(resolve(ts.normalizePath(project)))
             : resolve(ts.normalizePath(ts.sys.getCurrentDirectory()));
 
@@ -94,8 +94,8 @@ module.exports = function (ts) {
     /**
      * Obtains the custom transformers from the project configuration file
      *
-     * @param program
-     * @returns {{before: Array, after: Array}}
+     * @param {*} program
+     * @return {{before: Array, after: Array}}
      */
     function getCustomTransformers(program) {
         const {customTransformers = []} = program.getCompilerOptions();
@@ -105,7 +105,7 @@ module.exports = function (ts) {
                 .filter(({type}) => type === 'before')),
 
             after: loadCustomTransformers(customTransformers
-                .filter(({type}) => type === 'after'))
+                .filter(({type}) => type === 'after')),
         };
     }
 };

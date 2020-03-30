@@ -13,12 +13,12 @@ const Module = require('module');
 const compile = Module.prototype._compile;
 
 const injections = [
-    require('./injections/tsc-module-export-injection')
+    require('./injections/tsc-module-export-injection'),
 ];
 
 // Custom _compile method
-Module.prototype._compile = function (...args) {
-    for (let injection of injections) {
+Module.prototype._compile = function(...args) {
+    for (const injection of injections) {
         args[0] = injection(args[0], args[1]);
     }
 

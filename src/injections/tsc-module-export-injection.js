@@ -13,11 +13,11 @@
  *
  * @param {string} content
  * @param {string} path
- * @returns {string}
+ * @return {string}
  */
-module.exports = function (content, path) {
+module.exports = function(content, path) {
     if (path.endsWith('typescript/lib/tsc.js')) {
-        return content.replace(/^.*ts\.sys\.args.*$/mg, "module.exports = ts;");
+        return content.replace(/^.*ts\.sys\.args.*$/mg, 'module.exports = ts;');
     }
 
     return content;

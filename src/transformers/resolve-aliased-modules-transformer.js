@@ -8,34 +8,35 @@
  */
 
 const ts = require('typescript/lib/tsc');
-const { relative, dirname } = require('path');
+const {relative, dirname} = require('path');
 
 /**
  * Custom transformer that modifies the module specifier making it emit the resolved module instead the aliased one.
  *
  * @param {TransformationContext} context
- * @returns {function(*): *}
+ * @return {function(*): *}
  */
-module.exports = function (context) {
+module.exports = function(context) {
     return ts.chainBundle(transformSourceFile);
 
     /**
      *
      * @param {SourceFile} sourceFile
+     * @return {SourceFile}
      */
     function transformSourceFile(sourceFile) {
         if (sourceFile === null) {
             return sourceFile;
         }
 
-        const { resolvedModules } = sourceFile;
+        const {resolvedModules} = sourceFile;
 
         return ts.visitEachChild(sourceFile, childVisitor, context);
 
         /**
          *
-         * @param node
-         * @returns {*|undefined}
+         * @param {Node} node
+         * @return {*|undefined}
          */
         function childVisitor(node) {
             return ts.isImportDeclaration(node) || ts.isExportDeclaration(node)
@@ -45,8 +46,8 @@ module.exports = function (context) {
 
         /**
          *
-         * @param node
-         * @returns {ImportDeclaration | ExportDeclaration}
+         * @param {Node} node
+         * @return {ImportDeclaration | ExportDeclaration}
          */
         function moduleDeclarationVisitor(node) {
             if (node.moduleSpecifier) {
@@ -72,6 +73,7 @@ module.exports = function (context) {
          *
          * @param {string} moduleName
          * @param {ResolvedModule} moduleDefinition
+         * @return {boolean}
          */
         function isAliasedImport(moduleName, {isExternalLibraryImport}) {
             return moduleName && !(isExternalLibraryImport

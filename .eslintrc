@@ -1,0 +1,19 @@
+{
+  "extends": ["eslint:recommended", "google"],
+
+  "env": {
+    "es6": true,
+    "node": true
+  },
+
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "rules": {
+    "arrow-parens": "off",
+    "comma-dangle": "warn",
+    "indent": ["error", 4],
+    "max-len": ["error", 121],
+    "no-console": "warn"
+  }
+}

@@ -9,15 +9,15 @@
 /**
  * Enables the common section for enhancements in the tsconfig.json file.
  *
- * @param ts
+ * @param {*} ts
  */
-module.exports = function (ts) {
+module.exports = function(ts) {
     // Copied from the tsc.js source because its not exposed
-    ts.diag = function (code, category, key, message, reportsUnnecessary) {
-        return { code: code, category: category, key: key, message: message, reportsUnnecessary: reportsUnnecessary };
+    ts.diag = function(code, category, key, message, reportsUnnecessary) {
+        return {code: code, category: category, key: key, message: message, reportsUnnecessary: reportsUnnecessary};
     };
 
     // Creates a message for the tsce --init command
     ts.Diagnostics.Enhancement_Options = ts.diag(100000,
-        ts.DiagnosticCategory.Message, "Enhancement_Options_100000", "Enhancement Options");
+        ts.DiagnosticCategory.Message, 'Enhancement_Options_100000', 'Enhancement Options');
 };

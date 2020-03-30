@@ -10,28 +10,28 @@
  * Enables the "resolveAliasedModules" property on the tsconfig.json. It requires the version 2.3.0 of the typescript
  * package because before that version, the emit method of the programs didn't handle them.
  *
- * @param ts
+ * @param {*} ts
  */
-module.exports = function (ts) {
+module.exports = function(ts) {
     // Creates a message for the tsce --init command
     ts.Diagnostics.Resolve_Aliased_Modules_Description = ts.diag(100001,
-        ts.DiagnosticCategory.Message, "Resolve_Aliased_Modules_Description_100001",
-        "Re-maps in the emited output all the module resolution configured in 'path'.");
+        ts.DiagnosticCategory.Message, 'Resolve_Aliased_Modules_Description_100001',
+        'Re-maps in the emited output all the module resolution configured in \'path\'.');
 
     // Adds an option to tsconfig.json to enable this enhacement
     ts.optionDeclarations = ts.optionDeclarations.concat([
         {
-            name: "resolveAliasedModules",
-            type: "boolean",
+            name: 'resolveAliasedModules',
+            type: 'boolean',
             isTSConfigOnly: true,
             category: ts.Diagnostics.Enhancement_Options,
-            description: ts.Diagnostics.Resolve_Aliased_Modules_Description
-        }
+            description: ts.Diagnostics.Resolve_Aliased_Modules_Description,
+        },
     ]);
 
     // Hook on createProgram
     const createProgram = ts.createProgram;
-    ts.createProgram = function (...args) {
+    ts.createProgram = function(...args) {
         const program = createProgram.apply(this, args);
         const emit = program.emit;
 
@@ -39,7 +39,7 @@ module.exports = function (ts) {
 
         if (resolveAliasedModules) {
             // Hook on emit
-            program.emit = function (...args) {
+            program.emit = function(...args) {
                 const [,,,, transformers] = args;
 
                 const resolveAliasedModulesTransformer =
@@ -50,9 +50,9 @@ module.exports = function (ts) {
                     before: transformers && Array.isArray(transformers.before)
                         ? [
                             ...transformers.before,
-                            resolveAliasedModulesTransformer
+                            resolveAliasedModulesTransformer,
                         ]
-                        : [resolveAliasedModulesTransformer]
+                        : [resolveAliasedModulesTransformer],
                 };
 
                 return emit.apply(this, args);
