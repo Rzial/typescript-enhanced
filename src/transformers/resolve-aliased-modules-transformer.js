@@ -58,7 +58,10 @@ module.exports = function (context) {
                     const moduleRelativePath = ('./' + relative(dirname(sourceFile.fileName), modulePath))
                         .replace(new RegExp('\\' + moduleDefinition.extension + '$'), '');
 
-                    node.moduleSpecifier = ts.createLiteral(moduleRelativePath);
+                    const replacedNode = ts.getMutableClone(node);
+                    replacedNode.moduleSpecifier = ts.createStringLiteral(moduleRelativePath);
+
+                    return replacedNode;
                 }
             }
 

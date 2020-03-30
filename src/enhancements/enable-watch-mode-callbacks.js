@@ -43,7 +43,9 @@ module.exports = function (ts) {
 
     // Config path
     const { options: { project } } = ts.parseCommandLine(ts.sys.args);
-    const configPath = dirname(resolve(ts.normalizePath(project || ts.sys.getCurrentDirectory())));
+    const configPath = project
+        ? dirname(resolve(ts.normalizePath(project)))
+        : resolve(ts.normalizePath(ts.sys.getCurrentDirectory()));
 
     // Hook on createProgram
     const createWatchProgram = ts.createWatchProgram;
@@ -55,7 +57,7 @@ module.exports = function (ts) {
         const onWatchStatusChange = host.onWatchStatusChange;
 
         host.afterProgramCreate = function (...args) {
-            const [builderProgram] = args;
+            const [ builderProgram ] = args;
             const program = builderProgram.getProgramOrUndefined();
 
             hadProgram = !!program;
@@ -75,12 +77,12 @@ module.exports = function (ts) {
                 const { onWatchSuccess, onWatchFail } = compilerOptions;
 
                 if (onWatchSuccess && hadErrors) {
-                    const [ onWatchSuccessCommand, ...onWatchSuccessArgs] = onWatchSuccess.split(' ');
+                    const [ onWatchSuccessCommand, ...onWatchSuccessArgs ] = onWatchSuccess.split(' ');
                     spawnSync(onWatchSuccessCommand, onWatchSuccessArgs, { cwd: configPath, stdio: 'inherit' });
                 }
 
                 if (onWatchFail && !hadErrors) {
-                    const [ onWatchFailCommand, ...onWatchFailArgs] = onWatchFail.split(' ');
+                    const [ onWatchFailCommand, ...onWatchFailArgs ] = onWatchFail.split(' ');
                     spawnSync(onWatchFailCommand, onWatchFailArgs, { cwd: configPath, stdio: 'inherit' });
                 }
             }
