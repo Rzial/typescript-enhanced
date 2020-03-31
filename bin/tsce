@@ -3,4 +3,4 @@
 const ts = require('../src/tsce');
 
 // Give the control back to tsc
-ts.executeCommandLine(ts.sys.args);
+ts.executeTSCE();

@@ -12,7 +12,7 @@
   "rules": {
     "arrow-parens": "off",
     "comma-dangle": "warn",
-    "indent": ["error", 4],
+    "indent": ["error", 4, { "SwitchCase": 1 }],
     "max-len": ["error", 121],
     "no-console": "warn"
   }

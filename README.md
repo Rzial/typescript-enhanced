@@ -1,6 +1,8 @@
 Typescript Enhanced
 ===================
 
+> [Change Log](https://github.com/Rzial/typescript-enhanced/blob/master/CHANGES.md)
+
 [Typescript Enhanced](https://github.com/Rzial/typescript-enhanced) is an
 extension of the existing Typescript package that modifies the functionality of
 the `tsc` command giving it some superpowers.
@@ -24,12 +26,12 @@ in a future release this could be upgraded.
 ### Usage
 ```bash
 npm i --save-dev typescript typescript-enhanced
-tsce
+npx tsce
 ```
 
 > This packages wraps the actual tsc command, so it needs typescript to work.
 > Typescript Enhanced uses Typescript as peer dependency to make you able to
-> use any version of the package.
+> use any supported version of the package.
 
 ### Enhancements
 #### Custom Transformers
@@ -58,7 +60,7 @@ To enable this enhacement just add to your `tsconfig.json` the following line.
 
 The custom transformer option applies the all the transformations on the order
 you specify them. You can find some custom transformer examples on the
-test folder.
+samples folder.
 
 #### Resolve Aliased Modules
 In Typescript Enhanced you will be able to finally resolve those messy imports 
